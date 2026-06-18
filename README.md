@@ -206,6 +206,33 @@ AE2 WCWT 为 **Minecraft Forge 1.20.1** 的 **Applied Energistics 2** 添加了�
 - Advanced AE、Extended Pattern Provider、AE2 Import Export Card、Mekanism 以及相关工具/卡片物品会在存在时进行兼容处理。
 - Cloth Config 和 Architectury 用于运行时 Forge 配置界面。
 
+### GTLCore 兼容附属
+
+本仓库也会构建一个可选的客户端附属模组：
+
+```text
+wcwt-gtlcore-compat
+```
+
+该附属会把 GTLCore 对 AE2 样板编码转移的处理逻辑应用到 WCWT 的无线综合工作终端中，包括 GTLCore 转移输入剔除、数据物品 NBT 清理、通用电路优先、多方块仓室过滤，以及多方块伪输出书生成。
+
+版本规则：
+
+- 附属模组使用独立版本属性：`gtlcore_compat_version`。
+- WCWT 主模组继续使用 `mod_version`。
+- 附属产物名为 `wcwt-gtlcore-compat-<gtlcore_compat_version>.jar`。
+- 当前附属版本：`1.0.0`。
+
+前置版本要求：
+
+- Minecraft `1.20.1`
+- Forge `47.4.10` 或 Forge 47 范围内的更新版本
+- Java `17`
+- AE2 WCWT `1.20.1.4` 或更新版本
+- GTLCore `1.2.3.0` 或更新版本
+
+该附属独立于 WCWT 主模组 jar。需要 GTLCore 兼容时，请同时安装 WCWT 主模组 jar 和 `wcwt-gtlcore-compat` jar。
+
 ## 内置资源包
 
 AE2 WCWT 内置一个可选资源包：
@@ -272,6 +299,12 @@ Windows：
 
 ```text
 build/libs/
+```
+
+同一次构建也会生成可选的 GTLCore 兼容附属 jar：
+
+```text
+build/libs/wcwt-gtlcore-compat-<gtlcore_compat_version>.jar
 ```
 
 ## 开发说明
