@@ -59,9 +59,6 @@ Versioning:
 
 Required versions:
 
-- Minecraft `1.20.1`
-- Forge `47.4.10` or newer in the Forge 47 range
-- Java `17`
 - AE2 WCWT `1.20.1.4` or newer
 - GTLCore `1.2.3.0` or newer
 
@@ -225,9 +222,6 @@ wcwt-gtlcore-compat
 
 前置版本要求：
 
-- Minecraft `1.20.1`
-- Forge `47.4.10` 或 Forge 47 范围内的更新版本
-- Java `17`
 - AE2 WCWT `1.20.1.4` 或更新版本
 - GTLCore `1.2.3.0` 或更新版本
 
