@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lhy.wcwt.gtlcore.mixin",
+  "plugin": "com.lhy.wcwt.gtlcore.mixin.WcwtGtlcoreCompatMixinPlugin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "WirelessComprehensiveWorkTerminalMenuMixin"
+  ],
+  "client": [
+    "WcwtEmiRecipeHandlerMixin",
+    "WcwtRecipeTransferHandlerMixin",
+    "WcwtIngredientPrioritiesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

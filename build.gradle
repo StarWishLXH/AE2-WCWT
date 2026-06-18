@@ -19,6 +19,10 @@ apply plugin: 'org.spongepowered.mixin'
 group = mod_group_id
 version = mod_version
 
+def gtlcoreCompatModId = 'wcwt_gtlcore_compat'
+def gtlcoreCompatModName = 'WCWT GTLCore Compat'
+def gtlcoreCompatModAuthors = 'StarWishLXH'
+
 base {
     archivesName = mod_id
 }
@@ -26,6 +30,22 @@ base {
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
     withSourcesJar()
+}
+
+sourceSets {
+    gtlcoreCompat {
+        java.setSrcDirs(['src/gtlcoreCompat/java'])
+        resources.setSrcDirs(['src/gtlcoreCompat/resources'])
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
+configurations {
+    gtlcoreCompatImplementation.extendsFrom implementation
+    gtlcoreCompatCompileOnly.extendsFrom compileOnly
+    gtlcoreCompatRuntimeOnly.extendsFrom runtimeOnly
+    gtlcoreCompatAnnotationProcessor.extendsFrom annotationProcessor
 }
 
 minecraft {
@@ -158,6 +178,29 @@ tasks.named('processResources', ProcessResources).configure {
     }
 }
 
+tasks.named('processGtlcoreCompatResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version          : minecraft_version,
+            minecraft_version_range    : minecraft_version_range,
+            forge_version              : forge_version,
+            forge_version_range        : forge_version_range,
+            loader_version_range       : loader_version_range,
+            mod_license                : mod_license,
+            mod_version                : mod_version,
+            mod_authors                : gtlcoreCompatModAuthors,
+            wcwt_mod_id                : mod_id,
+            wcwt_version               : mod_version,
+            gtlcore_compat_mod_id      : gtlcoreCompatModId,
+            gtlcore_compat_mod_name    : gtlcoreCompatModName,
+            gtlcore_compat_description : 'Applies GTLCore original AE2 multiblock pattern transfer filtering to WCWT.'
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties + [project: project]
+    }
+}
+
 tasks.named('jar', Jar).configure {
     manifest {
         attributes([
@@ -171,6 +214,39 @@ tasks.named('jar', Jar).configure {
         ])
     }
     finalizedBy 'reobfJar'
+}
+
+tasks.register('gtlcoreCompatJar', Jar).configure {
+    archiveBaseName = "${mod_id}-gtlcore-compat"
+    archiveVersion = mod_version
+    from sourceSets.gtlcoreCompat.output
+    manifest {
+        attributes([
+                'Specification-Title'     : gtlcoreCompatModId,
+                'Specification-Vendor'    : gtlcoreCompatModAuthors,
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : gtlcoreCompatModName,
+                'Implementation-Version'  : project.version,
+                'Implementation-Vendor'   : gtlcoreCompatModAuthors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs'            : "${gtlcoreCompatModId}.mixins.json"
+        ])
+    }
+    finalizedBy 'reobfGtlcoreCompatJar'
+}
+
+tasks.configureEach {
+    if (name == 'addMixinsToGtlcoreCompatJar') {
+        enabled = false
+    }
+}
+
+reobf {
+    gtlcoreCompatJar {}
+}
+
+tasks.named('assemble').configure {
+    dependsOn tasks.named('gtlcoreCompatJar')
 }
 
 tasks.withType(JavaCompile).configureEach {
