@@ -40,6 +40,33 @@ Current version: `20.0.0.2`
 - Advanced AE, Extended Pattern Provider, AE2 Import Export Card, Mekanism, and related tool/card items are handled when present.
 - Cloth Config and Architectury are used at runtime for the Forge config screen.
 
+### GTLCore Compatibility Addon
+
+This repository also builds an optional client-side addon:
+
+```text
+wcwt-gtlcore-compat
+```
+
+The addon applies GTLCore's AE2 pattern-transfer behavior to WCWT's Wireless Comprehensive Work Terminal, including GTLCore transfer input exclusions, data item tag cleanup, universal circuit preference, multiblock hatch filtering, and multiblock fake output book generation.
+
+Versioning:
+
+- The addon has its own version property: `gtlcore_compat_version`.
+- The WCWT main mod keeps using `mod_version`.
+- The addon jar is generated as `wcwt-gtlcore-compat-<gtlcore_compat_version>.jar`.
+- Current addon version: `1.0.0`.
+
+Required versions:
+
+- Minecraft `1.20.1`
+- Forge `47.4.10` or newer in the Forge 47 range
+- Java `17`
+- AE2 WCWT `1.20.1.4` or newer
+- GTLCore `1.2.3.0` or newer
+
+The addon is independent from the main WCWT jar. Install both the main WCWT jar and the `wcwt-gtlcore-compat` jar when GTLCore compatibility is needed.
+
 ## Built-In Resource Pack
 
 AE2 WCWT includes an optional built-in resource pack:
@@ -106,6 +133,12 @@ Generated jars are written under:
 
 ```text
 build/libs/
+```
+
+The same build also creates the optional GTLCore compatibility addon jar:
+
+```text
+build/libs/wcwt-gtlcore-compat-<gtlcore_compat_version>.jar
 ```
 
 ## Development Notes

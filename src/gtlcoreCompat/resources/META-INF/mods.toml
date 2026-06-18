@@ -4,7 +4,7 @@ license="${mod_license}"
 
 [[mods]]
 modId="${gtlcore_compat_mod_id}"
-version="${mod_version}"
+version="${gtlcore_compat_version}"
 displayName="${gtlcore_compat_mod_name}"
 authors="${mod_authors}"
 displayTest="IGNORE_SERVER_VERSION"

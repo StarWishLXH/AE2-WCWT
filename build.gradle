@@ -187,6 +187,7 @@ tasks.named('processGtlcoreCompatResources', ProcessResources).configure {
             loader_version_range       : loader_version_range,
             mod_license                : mod_license,
             mod_version                : mod_version,
+            gtlcore_compat_version     : gtlcore_compat_version,
             mod_authors                : gtlcoreCompatModAuthors,
             wcwt_mod_id                : mod_id,
             wcwt_version               : mod_version,
@@ -218,7 +219,7 @@ tasks.named('jar', Jar).configure {
 
 tasks.register('gtlcoreCompatJar', Jar).configure {
     archiveBaseName = "${mod_id}-gtlcore-compat"
-    archiveVersion = mod_version
+    archiveVersion = gtlcore_compat_version
     from sourceSets.gtlcoreCompat.output
     manifest {
         attributes([
@@ -226,7 +227,7 @@ tasks.register('gtlcoreCompatJar', Jar).configure {
                 'Specification-Vendor'    : gtlcoreCompatModAuthors,
                 'Specification-Version'   : '1',
                 'Implementation-Title'    : gtlcoreCompatModName,
-                'Implementation-Version'  : project.version,
+                'Implementation-Version'  : gtlcore_compat_version,
                 'Implementation-Vendor'   : gtlcoreCompatModAuthors,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 'MixinConfigs'            : "${gtlcoreCompatModId}.mixins.json"
